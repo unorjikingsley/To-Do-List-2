@@ -87,6 +87,7 @@ function displayTasks() {
 
     todoList.appendChild(listItem);
   });
+  localStorage.setItem('tasks', JSON.stringify(tasks));
 }
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -108,14 +109,9 @@ document.addEventListener('DOMContentLoaded', () => {
     tasks.forEach((task, i) => {
       task.index = i;
     });
-    saveTasks();
     displayTasks();
   });
 });
-
-function saveTasks() {
-  localStorage.setItem('tasks', JSON.stringify(tasks));
-}
 
 function addTask(description) {
   const task = {
@@ -125,7 +121,6 @@ function addTask(description) {
   };
   tasks.push(task);
   displayTasks();
-  saveTasks();
 }
 
 function deleteTask(index) {
@@ -134,18 +129,16 @@ function deleteTask(index) {
     task.index = i;
   });
   displayTasks();
-  saveTasks();
 }
 
 function editTask(index, newDescription) {
   tasks[index].description = newDescription;
   displayTasks();
-  saveTasks();
 }
 
 function toggleCompleted(index, completed) {
   tasks[index].completed = completed;
-  saveTasks();
+  displayTasks();
 }
 
 document.addEventListener('DOMContentLoaded', () => {
